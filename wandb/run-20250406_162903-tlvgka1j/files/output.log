@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/user/EV_hw/hw1-YMJ1123/run.py", line 53, in <module>
+    trainer.train()
+  File "/home/user/EV_hw/hw1-YMJ1123/torch_3dgs/trainer.py", line 133, in train
+    self.eval_step(0)
+  File "/home/user/EV_hw/hw1-YMJ1123/torch_3dgs/trainer.py", line 110, in eval_step
+    output = self.gauss_render(pc=self.model, camera=camera)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/anaconda3/envs/ev_hw1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/anaconda3/envs/ev_hw1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/EV_hw/hw1-YMJ1123/torch_3dgs/render.py", line 289, in forward
+    return self.render(camera, means2D, cov2d, color, pc.opacity, depths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/EV_hw/hw1-YMJ1123/torch_3dgs/render.py", line 222, in render
+    alpha = sorted_opacity * gauss_weight
+            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+RuntimeError: The size of tensor a (35) must match the size of tensor b (2500) at non-singleton dimension 0

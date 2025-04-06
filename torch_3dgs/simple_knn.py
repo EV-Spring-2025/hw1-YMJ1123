@@ -19,14 +19,18 @@ def compute_mean_knn_dist(points: torch.Tensor, k: int = 3) -> torch.Tensor:
 
     # TODO: Ignore self-distances (distance of each point to itself)
     # Hint: Use fill_diagonal_ to set diagonal values to infinity
-    # dists_sq.fill_diagonal_(......)
+    # dists_sq.fill_diagonal_(......) 
+    dists_sq.fill_diagonal_(float('inf'))
+
 
     # TODO: Find k-nearest neighbors
     # Hint: Use torch.topk to find the smallest k distances for each point
     # knn_vals, _ = ......
+    knn_vals, _ = torch.topk(dists_sq, k=k, dim=1, largest=False)
 
     # TODO: Compute the mean k-NN distance
     # Hint: Average the distances over the k neighbors
     # mean_knn_dist = ......
+    mean_knn_dist = torch.sqrt(torch.mean(knn_vals, dim=1))
     
     return mean_knn_dist

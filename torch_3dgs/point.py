@@ -30,16 +30,103 @@ def get_point_clouds(cameras, depths, alphas, rgbs=None):
     # Hint: You need to use the camera intrinsics (intrinsics) and extrinsics (c2ws)
     # to convert pixel coordinates into world-space rays.
     # rays_o, rays_d = ......
+    device = depths.device
+    y, x = torch.meshgrid(
+        torch.arange(H, device=device),
+        torch.arange(W, device=device),
+        indexing="ij"
+    )
+    x = x.flatten()
+    y = y.flatten()
+
+    # 將像素座標轉換為標準化設備座標
+    fx, fy = intrinsics[0, 0, 0], intrinsics[0, 1, 1]
+    cx, cy = intrinsics[0, 0, 2], intrinsics[0, 1, 2]
+    directions = torch.stack([
+        (x - cx) / fx,
+        (y - cy) / fy,
+        torch.ones_like(x)
+    ], dim=-1)
+
+    # 將射線方向從相機空間轉換到世界空間
+    rays_d = directions @ c2ws[0, :3, :3].T
+    rays_d = rays_d / torch.norm(rays_d, dim=-1, keepdim=True)
+
+    # 獲取射線原點（相機在世界空間中的位置）
+    rays_o = c2ws[0, :3, 3].expand(rays_d.shape)
 
     # TODO: Compute 3D world coordinates using depth values
     # Hint: Use the ray equation: P = O + D * depth
     # P: 3D point, O: ray origin, D: ray direction, depth: depth value
     # pts = ......
+    if depths.ndim == 3 and depths.shape[0] > 1:  # If multiple depth maps exist
+        depths = depths[0]  # Use the first depth map
+    depths_flat = depths.reshape(H * W)
+    
+    # 確保維度匹配
+    if rays_d.shape[0] != depths_flat.shape[0]:
+        # 如果維度不匹配，可能需要調整depths_flat的形狀
+        # 假設depths的原始形狀是[H, W]
+        depths_flat = depths.reshape(H*W)
+        
+        # 確保rays_d和rays_o的第一維也是H*W
+        if rays_d.shape[0] != H*W:
+            # 重新計算rays_d和rays_o以匹配正確的形狀
+            y, x = torch.meshgrid(
+                torch.arange(H, device=device),
+                torch.arange(W, device=device),
+                indexing="ij"
+            )
+            x = x.reshape(H*W)
+            y = y.reshape(H*W)
+            
+            directions = torch.stack([
+                (x - cx) / fx,
+                (y - cy) / fy,
+                torch.ones_like(x)
+            ], dim=-1)
+            
+            rays_d = directions @ c2ws[0, :3, :3].T
+            rays_d = rays_d / torch.norm(rays_d, dim=-1, keepdim=True)
+            rays_o = c2ws[0, :3, 3].expand(rays_d.shape)
+
+    pts = rays_o + rays_d * depths_flat.unsqueeze(-1)
+
 
     # TODO: Apply the alpha mask to filter valid points
     # Hint: Mask should be applied to both coordinates and RGB values (if provided)
     # mask = ......
     # coords = pts[mask].cpu().numpy()
+    
+    # Print shape information for debugging
+    print(f"Depths shape: {depths.shape}, Alphas shape: {alphas.shape}, pts shape: {pts.shape}")
+    
+    # Handle alphas with the same dimensionality as depths
+    if alphas.ndim == 3:
+        # For 3D alphas (batch, height, width), take the first slice to match depths
+        alphas = alphas[0] if alphas.shape[0] > 1 else alphas.squeeze(0)
+    
+    # Now alphas should be 2D (height, width)
+    mask = alphas.reshape(-1).bool()  # Just flatten the mask to match pts
+    coords = pts[mask].cpu().numpy()
+
+    if rgbs is not None:
+        # Make sure rgbs is the right shape
+        if rgbs.ndim == 4:  # If rgbs has shape (N, H, W, 3)
+            rgbs = rgbs[0]  # Take the first image
+        
+        # Reshape rgbs to match the same flattened dimensions as pts
+        rgbs_flat = rgbs.reshape(-1, 3)
+        
+        # Make sure alphas is the right shape for concatenation
+        if alphas.numel() == H*W:  # If alphas is already 2D
+            alphas_flat = alphas.reshape(-1, 1)
+        else:  # Otherwise reshape to match rgbs
+            alphas_flat = alphas.reshape(rgbs_flat.shape[0], 1)
+            
+        rgbas = torch.cat([rgbs_flat, alphas_flat], dim=-1)
+        rgbas = rgbas[mask].cpu().numpy()
+
 
     if rgbs is not None:
         channels = dict(

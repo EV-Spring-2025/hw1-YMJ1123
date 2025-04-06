@@ -1,0 +1,42 @@
+{
+  "os": "Linux-5.15.0-125-generic-x86_64-with-glibc2.31",
+  "python": "CPython 3.11.11",
+  "startedAt": "2025-04-06T08:34:13.844051Z",
+  "program": "/home/user/EV_hw/hw1-YMJ1123/run.py",
+  "codePath": "run.py",
+  "git": {
+    "remote": "https://github.com/EV-Spring-2025/hw1-YMJ1123.git",
+    "commit": "783a17ee9f40257a02a3eab446321246bdd857f9"
+  },
+  "email": "ymj0983671795@gmail.com",
+  "root": "/home/user/EV_hw/hw1-YMJ1123",
+  "host": "user",
+  "executable": "/home/user/anaconda3/envs/ev_hw1/bin/python",
+  "codePathLocal": "run.py",
+  "cpu_count": 10,
+  "cpu_count_logical": 20,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "982820896768",
+      "used": "538974310400"
+    }
+  },
+  "memory": {
+    "total": "33314648064"
+  },
+  "cpu": {
+    "count": 10,
+    "countLogical": 20
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.2"
+}
