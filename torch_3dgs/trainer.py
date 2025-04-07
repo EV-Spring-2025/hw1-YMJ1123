@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import torch
 from torch import nn
 from tqdm import trange
+import tqdm
 
 from .camera import to_viewpoint_camera
 from .metric import calc_psnr
@@ -62,13 +63,11 @@ class Trainer:
     
         # TODO: Compute L1 Loss
         # Hint: L1 loss measures absolute pixel-wise differences between the rendered image and ground truth.
-        # l1_loss = ... 
         l1_loss = torch.abs(output["render"] - rgb).mean()
 
     
         # TODO: Compute DSSIM Loss
         # Hint: DSSIM loss is derived from SSIM, a perceptual loss that compares structure, contrast, and luminance.
-        # dssim_loss = ... 
         from .metric import calc_ssim
         ssim = calc_ssim(output["render"].permute(2, 0, 1).unsqueeze(0), 
                         rgb.permute(2, 0, 1).unsqueeze(0))
@@ -77,16 +76,14 @@ class Trainer:
     
         # TODO: Compute Depth Loss
         # Hint: Compute depth error only where valid (using the mask).
-        # depth_loss = ... 
         depth_diff = torch.abs(output["depth"] - depth.unsqueeze(-1))
         depth_loss = (depth_diff * mask.unsqueeze(-1)).sum() / (mask.sum() + 1e-6)
 
     
         # TODO: Compute Total Loss
         # Hint: Combine all losses using respective weighting coefficients.
-        # total_loss = ...
         total_loss = self.l1_weight * l1_loss + self.dssim_weight * dssim_loss + self.depth_weight * depth_loss
-        
+
         total_loss.backward()
         self.optimizer.step()
     
@@ -131,24 +128,23 @@ class Trainer:
 
     def train(self) -> None:
         self.eval_step(0)
-        pbar = trange(1, self.num_steps + 1)
-        for step in pbar:
+        pbar = tqdm.tqdm(total=self.num_steps, desc="Training", position=0)
+        for step in range(1, self.num_steps + 1):
             outputs = self.train_step()
             results = {name: round(value.item(), 3) for name, value in outputs.items()}
             pbar.set_postfix(results)
-
+            pbar.update(1)
             if step % self.eval_interval == 0:
                 self.eval_step(step)
-                self.save(step)
-            
             if self.logger is not None:
                 self.logger.log(results)
+        pbar.close()
 
     def save(self, step: int) -> None:
         checkpoint = {
-            "step": step,
             "model": self.model.state_dict(),
             "opt": self.optimizer.state_dict(),
+            "step": step
         }
         torch.save(checkpoint, self.results_folder / f"model_{step}.pt")
 
@@ -161,7 +157,6 @@ class Trainer:
     def save_video(self, image_list: List[np.ndarray], output_path: str, fps: int = 30) -> None:
         if not image_list:
             raise ValueError("image_list is empty!")
-
         writer = imageio.get_writer(output_path, fps=fps)
         for image in image_list:
             writer.append_data(image)

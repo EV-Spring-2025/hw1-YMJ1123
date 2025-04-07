@@ -1,0 +1,12 @@
+{"time":"2025-04-06T20:59:25.183459474+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/user/EV_hw/hw1-YMJ1123/wandb/run-20250406_205925-me7lapjj/logs/debug-core.log"}
+{"time":"2025-04-06T20:59:25.29386052+08:00","level":"INFO","msg":"created new stream","id":"me7lapjj"}
+{"time":"2025-04-06T20:59:25.293932059+08:00","level":"INFO","msg":"stream: started","id":"me7lapjj"}
+{"time":"2025-04-06T20:59:25.293982581+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"me7lapjj"}
+{"time":"2025-04-06T20:59:25.293984826+08:00","level":"INFO","msg":"sender: started","stream_id":"me7lapjj"}
+{"time":"2025-04-06T20:59:25.294504864+08:00","level":"INFO","msg":"handler: started","stream_id":"me7lapjj"}
+{"time":"2025-04-06T20:59:25.614219985+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-06T21:02:46.069593014+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/me7lapjj/file_stream\": write tcp 192.168.1.78:33132->35.186.228.49:443: write: broken pipe"}
+{"time":"2025-04-06T21:03:51.387828818+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/me7lapjj/file_stream\": write tcp 192.168.1.78:58514->35.186.228.49:443: write: broken pipe"}
+{"time":"2025-04-06T21:04:22.244609529+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/me7lapjj/file_stream\": write tcp 192.168.1.78:56246->35.186.228.49:443: write: broken pipe"}
+{"time":"2025-04-06T21:05:05.148795404+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/me7lapjj/file_stream\": write tcp 192.168.1.78:60784->35.186.228.49:443: write: broken pipe"}
+{"time":"2025-04-06T21:05:26.643468171+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/me7lapjj/file_stream\": write tcp 192.168.1.78:40404->35.186.228.49:443: write: broken pipe"}

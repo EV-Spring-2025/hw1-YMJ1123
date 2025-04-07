@@ -1,0 +1,7 @@
+{"time":"2025-04-06T20:34:40.283889072+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/user/EV_hw/hw1-YMJ1123/wandb/run-20250406_203440-kxqtvfax/logs/debug-core.log"}
+{"time":"2025-04-06T20:34:40.395104484+08:00","level":"INFO","msg":"created new stream","id":"kxqtvfax"}
+{"time":"2025-04-06T20:34:40.395163007+08:00","level":"INFO","msg":"stream: started","id":"kxqtvfax"}
+{"time":"2025-04-06T20:34:40.395203343+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"kxqtvfax"}
+{"time":"2025-04-06T20:34:40.395264261+08:00","level":"INFO","msg":"sender: started","stream_id":"kxqtvfax"}
+{"time":"2025-04-06T20:34:40.395301137+08:00","level":"INFO","msg":"handler: started","stream_id":"kxqtvfax"}
+{"time":"2025-04-06T20:34:40.729261148+08:00","level":"INFO","msg":"Starting system monitor"}

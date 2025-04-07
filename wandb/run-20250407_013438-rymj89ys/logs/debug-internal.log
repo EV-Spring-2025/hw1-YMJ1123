@@ -1,0 +1,7 @@
+{"time":"2025-04-07T01:34:38.749400131+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/user/EV_hw/hw1-YMJ1123/wandb/run-20250407_013438-rymj89ys/logs/debug-core.log"}
+{"time":"2025-04-07T01:34:38.859375135+08:00","level":"INFO","msg":"created new stream","id":"rymj89ys"}
+{"time":"2025-04-07T01:34:38.859425412+08:00","level":"INFO","msg":"stream: started","id":"rymj89ys"}
+{"time":"2025-04-07T01:34:38.859533585+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"rymj89ys"}
+{"time":"2025-04-07T01:34:38.8595787+08:00","level":"INFO","msg":"sender: started","stream_id":"rymj89ys"}
+{"time":"2025-04-07T01:34:38.859604658+08:00","level":"INFO","msg":"handler: started","stream_id":"rymj89ys"}
+{"time":"2025-04-07T01:34:39.16489851+08:00","level":"INFO","msg":"Starting system monitor"}

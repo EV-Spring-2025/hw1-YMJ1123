@@ -237,12 +237,12 @@ class GaussRenderer(nn.Module):
                 for i in range(alpha.shape[0]):  # Loop over Gaussians
                     alpha_i = alpha[i]  # Shape [2500]
                     weight_i = alpha_i * T  # Shape [2500]
-                    acc_alpha += weight_i
-                    T *= (1 - alpha_i)
+                    acc_alpha = acc_alpha + weight_i  # Changed from += to avoid inplace operation
+                    T = T * (1 - alpha_i)  # Changed from *= to avoid inplace operation
                     
                     # Update color and depth
-                    tile_color += weight_i[:, None] * sorted_color[i]  # Now dimensions match
-                    tile_depth += weight_i[:, None] * sorted_depths[i]
+                    tile_color = tile_color + weight_i[:, None] * sorted_color[i]  # Changed from += to avoid inplace operation
+                    tile_depth = tile_depth + weight_i[:, None] * sorted_depths[i]  # Changed from += to avoid inplace operation
 
     
                 # TODO: Store computed values into rendering buffers.

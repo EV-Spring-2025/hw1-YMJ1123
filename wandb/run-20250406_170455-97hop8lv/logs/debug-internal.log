@@ -1,0 +1,9 @@
+{"time":"2025-04-06T17:04:55.964318556+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/user/EV_hw/hw1-YMJ1123/wandb/run-20250406_170455-97hop8lv/logs/debug-core.log"}
+{"time":"2025-04-06T17:04:56.076575468+08:00","level":"INFO","msg":"created new stream","id":"97hop8lv"}
+{"time":"2025-04-06T17:04:56.076629317+08:00","level":"INFO","msg":"stream: started","id":"97hop8lv"}
+{"time":"2025-04-06T17:04:56.076718774+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"97hop8lv"}
+{"time":"2025-04-06T17:04:56.077323406+08:00","level":"INFO","msg":"handler: started","stream_id":"97hop8lv"}
+{"time":"2025-04-06T17:04:56.077080134+08:00","level":"INFO","msg":"sender: started","stream_id":"97hop8lv"}
+{"time":"2025-04-06T17:04:56.384648241+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-06T17:08:52.952798591+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/97hop8lv/file_stream\": write tcp 192.168.1.78:52642->35.186.228.49:443: write: broken pipe"}
+{"time":"2025-04-06T17:09:32.280923964+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/ymj1123-national-taiwan-university/EV-HW1/97hop8lv/file_stream\": write tcp 192.168.1.78:54568->35.186.228.49:443: write: broken pipe"}
